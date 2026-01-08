@@ -13,12 +13,10 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    use AuthorizesRequests;
     /**
      * ProjectController constructor.
      *
@@ -76,8 +74,6 @@ class ProjectController extends Controller
      */
     public function show(Project $project): ProjectResource|JsonResponse
     {
-        $this->authorize('view', $project);
-
         try {
             
             return new ProjectResource($project);
@@ -96,8 +92,6 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project): JsonResponse
     {
-        $this->authorize('update', $project);
-
         try {
             $this->projectService->updateProject($project, $request->validated());
 
@@ -117,8 +111,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project): JsonResponse
     {
-        $this->authorize('delete', $project);
-
         try {
             
             $this->projectService->removeProject($project);

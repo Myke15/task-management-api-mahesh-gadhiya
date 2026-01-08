@@ -8,6 +8,7 @@ use App\Contracts\Project\ProjectRepoInterface;
 use App\Contracts\Project\ProjectServiceInterface;
 use App\Contracts\User\UserRepoInterface;
 use App\Contracts\User\UserServiceInterface;
+use App\Models\Project;
 use App\Repositories\ProjectRepository;
 use App\Repositories\TaskRepository;
 use App\Repositories\UserRepository;
@@ -18,6 +19,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -44,9 +46,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //TODO::Format Response in Json
         RateLimiter::for('guest-limit', function (Request $request) {
             return Limit::perMinute(3)->by($request->input('email'));
+        });
+
+        Route::bind('project', function (string $value) {
+            return Project::where('id', $value)->owned()->firstOrFail();
         });
     }
 }
