@@ -50,6 +50,7 @@ class User extends Authenticatable
 
     /**
     * Get the projects for the user.
+    * @return HasMany<Project, $this>
     */
     public function user(): HasMany
     {

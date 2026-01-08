@@ -42,6 +42,7 @@ class Project extends Model
 
     /**
     * Get the user that owns the project.
+    * @return BelongsTo<User, $this>
     */
     public function user(): BelongsTo
     {
@@ -50,6 +51,7 @@ class Project extends Model
 
     /**
      * Scope a query to only include user's own project.
+     * @param Builder<Project> $query
      */
     public function scopeOwned(Builder $query): void
     {
