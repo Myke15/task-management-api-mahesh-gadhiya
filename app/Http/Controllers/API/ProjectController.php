@@ -10,9 +10,12 @@ use App\Models\Project;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ProjectController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * ProjectController constructor.
      *
@@ -33,7 +36,7 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProjectRequest $request)
+    public function store(StoreProjectRequest $request): JsonResponse
     {
         try {
             
@@ -64,9 +67,22 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project): JsonResponse
     {
-        //
+        $this->authorize('update', $project);
+
+        try {
+            $this->projectService->updateProject($project, $request->validated());
+
+            return $this->responseSuccess('Project updated successfully.');
+
+        } catch (Exception $e) {
+
+            Log::error('Error While Updating Project', [$e->getMessage(), $e->getTraceAsString()]);
+
+            return $this->responseInternalServerError('Unable to update project, please try again later!');
+
+        }
     }
 
     /**
