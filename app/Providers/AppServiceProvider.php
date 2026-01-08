@@ -2,15 +2,18 @@
 
 namespace App\Providers;
 
+use App\Contracts\Task\TaskRepoInterface;
+use App\Contracts\Task\TaskServiceInterface;
 use App\Contracts\Project\ProjectRepoInterface;
 use App\Contracts\Project\ProjectServiceInterface;
 use App\Contracts\User\UserRepoInterface;
 use App\Contracts\User\UserServiceInterface;
-use App\Models\Project;
 use App\Repositories\ProjectRepository;
+use App\Repositories\TaskRepository;
 use App\Repositories\UserRepository;
 use App\Services\ProjectService;
 use App\Services\UserService;
+use App\Services\TaskService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
@@ -30,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
         //Project Services
         $this->app->bind(ProjectServiceInterface::class, ProjectService::class);
         $this->app->bind(ProjectRepoInterface::class, ProjectRepository::class);
+
+        //Task Services
+        $this->app->bind(TaskServiceInterface::class, TaskService::class);
+        $this->app->bind(TaskRepoInterface::class, TaskRepository::class);
     }
 
     /**
