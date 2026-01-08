@@ -9,13 +9,17 @@ use App\Models\Task;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ListTasksRequest;
 use App\Http\Resources\TaskCollection;
+use App\Http\Resources\TaskResource;
 use App\Models\Project;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class TaskController extends Controller
 {
+
+    use AuthorizesRequests;
 
     /**
      * TaskController constructor.
@@ -74,24 +78,64 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show(Task $task): TaskResource|JsonResponse
     {
-        //
+        $this->authorize('view', $task);
+        
+        try {   
+            
+            return new TaskResource($task);
+
+        } catch (Exception $e) {
+
+            Log::error('Error While Showing Task Detail', [$e->getMessage(), $e->getTraceAsString()]);
+
+            return $this->responseInternalServerError('Unable to fetch task, please try again later!');
+
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTaskRequest $request, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task): JsonResponse
     {
-        //
+        $this->authorize('update', $task);
+
+        try {
+            
+            $this->taskService->updateTask($task, $request->validated());
+
+            return $this->responseSuccess('Task updated successfully!');
+
+        } catch (Exception $e) {
+
+            Log::error('Error While Updating Task', [$e->getMessage(), $e->getTraceAsString()]);
+
+            return $this->responseInternalServerError('Unable to update task, please try again later!');
+
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Task $task): JsonResponse
     {
-        //
+        $this->authorize('delete', $task);
+
+        try {
+
+            $this->taskService->removeTask($task);
+
+            return $this->responseSuccess('Task removed!');
+
+        } catch (Exception $e) {
+
+            Log::error('Error While Removing Task', [$e->getMessage(), $e->getTraceAsString()]);
+
+            return $this->responseInternalServerError('Unable to remove task, please try again later!');
+
+        }
     }
 }
