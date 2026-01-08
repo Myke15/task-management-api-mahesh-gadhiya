@@ -33,7 +33,7 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(ListTasksRequest $request, Project $project)
+    public function index(ListTasksRequest $request, Project $project): JsonResponse
     {
         try {
             

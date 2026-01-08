@@ -20,7 +20,7 @@ class ProjectController extends Controller
     /**
      * ProjectController constructor.
      *
-     * @param ProjectServerInterface $projectService
+     * @param ProjectServiceInterface $projectService
      */
     public function __construct(
         public ProjectServiceInterface $projectService

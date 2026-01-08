@@ -5,6 +5,13 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use App\Http\Resources\BaseResource;
 
+/**
+ * @property-read int $id
+ * @property-read string $name
+ * @property-read string $email
+ * @property-read string $created_at
+ * @property-read string $updated_at
+ */
 class UserResource extends BaseResource
 {
     public static $wrap = 'user';

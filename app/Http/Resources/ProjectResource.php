@@ -5,6 +5,15 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use App\Http\Resources\BaseResource;
 
+/**
+ * @property-read int $id
+ * @property-read int $user_id
+ * @property-read string $name
+ * @property-read string $description
+ * @property-read string $status
+ * @property-read string $created_at
+ * @property-read string $updated_at
+ */
 class ProjectResource extends BaseResource
 {
     public static $wrap = 'project';

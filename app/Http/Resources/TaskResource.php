@@ -5,6 +5,17 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use App\Http\Resources\BaseResource;
 
+/**
+ * @property-read int $id
+ * @property-read int $project_id
+ * @property-read string $title
+ * @property-read string $description
+ * @property-read string $status
+ * @property-read string $priority
+ * @property-read string|null $due_date
+ * @property-read string $created_at
+ * @property-read string $updated_at
+ */
 class TaskResource extends BaseResource
 {
     public static $wrap = 'task';
