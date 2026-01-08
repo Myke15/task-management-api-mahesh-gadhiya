@@ -8,6 +8,7 @@ use App\Models\Project;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class ProjectService implements ProjectServiceInterface
 {
@@ -17,6 +18,16 @@ class ProjectService implements ProjectServiceInterface
     public function __construct(
         public ProjectRepoInterface $projectRepo
     ) {}
+    
+    /**
+     * Get the cache key for the user's projects.
+     *
+     * @return string
+     */
+    private function getCacheKey()
+    {
+        return 'user:' . auth()->id() . 'projects';
+    }
 
     /**
      * Create a new project.
@@ -27,16 +38,25 @@ class ProjectService implements ProjectServiceInterface
      */
     public function createProject(array $data): Project
     {
-        DB::beginTransaction();
-        
-        //Create Project
-        $project = $this->projectRepo->create($data);
-        
-        DB::commit();
+        try {
 
-        //TODO::clear cache
+            DB::beginTransaction();
+            
+            //Create Project
+            $project = $this->projectRepo->create($data);
+            
+            DB::commit();
 
-        return $project;
+            Cache::forget($this->getCacheKey());
+
+            return $project;
+
+        } catch (Exception $e) {
+            
+            DB::rollBack();
+
+            throw $e;
+        }
     }
 
     /**
@@ -48,15 +68,25 @@ class ProjectService implements ProjectServiceInterface
      */
     public function updateProject(Project $project, array $data): bool
     {
-        DB::beginTransaction();
-        //Update Project
-        $result = $this->projectRepo->update($project->id, $data);
+        try {
+            
+            DB::beginTransaction();
+            //Update Project
+            $result = $this->projectRepo->update($project->id, $data);
+            
+            DB::commit();
+
+            Cache::forget($this->getCacheKey());
+
+            return (bool) $result;
+
+        } catch (Exception $e) {
+            
+            DB::rollBack();
+
+            throw $e;
+        }
         
-        DB::commit();
-
-        //TODO::clear cache
-
-        return (bool) $result;
     }
 
 
@@ -68,17 +98,28 @@ class ProjectService implements ProjectServiceInterface
      */
     public function removeProject(Project $project): bool
     {
-        //Remove all tasks of the project firsts
-        DB::beginTransaction();
+        try {
+            //Remove all tasks of the project firsts
+            DB::beginTransaction();
+
+            //TODO:: Remove tasks associated with the project
+            
+            //Remove projects
+            $result = $this->projectRepo->remove($project->id);
+
+            DB::commit();
+
+            Cache::forget($this->getCacheKey());
+
+            return $result;
+
+        } catch (Exception $e) {
+            
+            DB::rollBack();
+
+            throw $e;
+        }
         
-        //Remove projects
-        $result = $this->projectRepo->remove($project->id);
-
-        DB::commit();
-
-        //TODO::clear cache
-
-        return $result;
     }
 
     /**
@@ -89,6 +130,8 @@ class ProjectService implements ProjectServiceInterface
      */
     public function listProjects(int $records = 15): LengthAwarePaginator
     {
-        return $this->projectRepo->getAll($records);
+        return Cache::remember($this->getCacheKey(), now()->addHour(), function () use ($records) {
+            return $this->projectRepo->getAll($records);
+        });
     }
 }

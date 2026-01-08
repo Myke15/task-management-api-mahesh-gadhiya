@@ -7,6 +7,8 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Auth\AuthenticationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -47,6 +49,26 @@ return Application::configure(basePath: dirname(__DIR__))
                     'result'    => false,
                     'message'   => $e->getMessage()
                 ], 401);
+            }
+        });
+
+        // Customizing the 404 Not found exception
+        $exceptions->render(function (NotFoundHttpException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'result'    => false,
+                    'message'   => "Record not found."
+                ], 404);
+            }
+        });
+
+        // Customizing the 403 unauthorized or forbidden exception
+        $exceptions->render(function (AccessDeniedHttpException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'result'    => false,
+                    'message'   => $e->getMessage()
+                ], 403);
             }
         });
     })->create();
