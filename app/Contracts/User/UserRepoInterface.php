@@ -9,7 +9,7 @@ interface UserRepoInterface
     /**
      * Create a new User.
      *
-     * @param array $data
+     * @param array{name: string, email: string, password: string} $data
      * @return User
      */
     public function create(array $data): User;

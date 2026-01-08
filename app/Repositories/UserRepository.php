@@ -10,7 +10,7 @@ class UserRepository implements UserRepoInterface
     /**
      * Create a new user.
      *
-     * @param array $data
+     * @param array{name: string, email: string, password: string} $data
      * @return User
      */
     public function create(array $data): User

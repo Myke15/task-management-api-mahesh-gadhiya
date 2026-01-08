@@ -9,7 +9,7 @@ interface UserServiceInterface
     /**
      * Create a new user.
      *
-     * @param array $data
+     * @param array{name: string, email: string, password: string} $data
      * @return User
      */
     public function createUser(array $data): User;
