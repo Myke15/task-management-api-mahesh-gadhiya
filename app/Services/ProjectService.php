@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\Project\ProjectServiceInterface;
+use App\Contracts\Task\TaskRepoInterface;
 use App\Contracts\Project\ProjectRepoInterface;
 use App\Models\Project;
 use Exception;
@@ -16,7 +17,8 @@ class ProjectService implements ProjectServiceInterface
      * Create a new class instance.
      */
     public function __construct(
-        public ProjectRepoInterface $projectRepo
+        public ProjectRepoInterface $projectRepo,
+        public TaskRepoInterface $taskRepo
     ) {}
     
     /**
@@ -102,7 +104,7 @@ class ProjectService implements ProjectServiceInterface
             //Remove all tasks of the project firsts
             DB::beginTransaction();
 
-            //TODO:: Remove tasks associated with the project
+            $this->taskRepo->removeProjectTasks($project->id);
             
             //Remove projects
             $result = $this->projectRepo->remove($project->id);

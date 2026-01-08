@@ -43,5 +43,14 @@ interface TaskRepoInterface
      * @return LengthAwarePaginator
      */
     public function getAll(int $projectId, array $filters, string $orderBy, int $records): LengthAwarePaginator;
+
+    /**
+     * Remove project task
+     *
+     * @param int $projectId
+     * @param bool $forceDelete
+     * @return bool
+     */
+    public function removeProjectTasks(int $projectId, bool $forceDelete = false): bool;
     
 }

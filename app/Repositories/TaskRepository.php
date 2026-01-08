@@ -75,4 +75,21 @@ class TaskRepository implements TaskRepoInterface
                     return $q->orderBy($orderBy);
                 })->paginate($records);
     }
+
+    /**
+     * Remove project task
+     *
+     * @param int $projectId
+     * @param bool $forceDelete
+     * @return bool
+     */
+    public function removeProjectTasks(int $projectId, bool $forceDelete = false): bool
+    {
+        return Task::where('project_id', $projectId)
+            ->when($forceDelete, function ($q) {
+                return $q->forceDelete();
+            }, function ($q) {
+                return $q->delete();
+            });
+    }
 }
