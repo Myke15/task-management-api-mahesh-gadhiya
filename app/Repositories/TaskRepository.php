@@ -13,7 +13,7 @@ class TaskRepository implements TaskRepoInterface
     /**
      * Create a new task.
      *
-     * @param array $data
+     * @param array{project_id: int, title: string, description: string, status: string, priority: string, due_date?: string} $data
      * @return Task
      */
     public function create(array $data): Task
@@ -24,12 +24,13 @@ class TaskRepository implements TaskRepoInterface
     /**
      * Update a task.
      * 
-     * @param array $data
+     * @param int $id
+     * @param array{title?: string, description?: string, status?: string, priority?: string, due_date?: string} $data
      * @return bool
      */
     public function update(int $id, array $data): bool
     {
-        return Task::where('id', $id)->update($data);
+        return (bool) Task::where('id', $id)->update($data);
     }
 
 
@@ -54,10 +55,10 @@ class TaskRepository implements TaskRepoInterface
      * List project tasks.
      *
      * @param int $projectId
-     * @param array $filters
+     * @param array{status?: string, priority?: string} $filters
      * @param string $orderBy
      * @param int $records
-     * @return LengthAwarePaginator
+     * @return LengthAwarePaginator<int, Task>
      */
     public function getAll(int $projectId, array $filters = [], string $orderBy = 'created_at', int $records = 10): LengthAwarePaginator
     {

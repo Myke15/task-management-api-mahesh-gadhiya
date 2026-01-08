@@ -23,7 +23,8 @@ class TaskService implements TaskServiceInterface
     /**
      * Create a new task.
      *
-     * @param array $data
+     * @param Project $project
+     * @param array{title: string, description: string, status: string, priority: string, due_date?: string} $data
      * @return Task
      */
     public function createTask(Project $project, array $data): Task
@@ -54,7 +55,7 @@ class TaskService implements TaskServiceInterface
      * Update a task
      *
      * @param Task $task
-     * @param array $data
+     * @param array{title?: string, description?: string, status?: string, priority?: string, due_date?: string} $data
      * @return bool
      */
     public function updateTask(Task $task, array $data): bool
@@ -115,10 +116,10 @@ class TaskService implements TaskServiceInterface
      * List project tasks.
      *
      * @param Project $project
-     * @param array $filters
+     * @param array{status?: string, priority?: string} $filters
      * @param string $orderBy
      * @param int $records
-     * @return LengthAwarePaginator
+     * @return LengthAwarePaginator<int, Task>
      */
     public function listTask(Project $project, array $filters, string $orderBy, int $records): LengthAwarePaginator
     {

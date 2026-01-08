@@ -10,7 +10,7 @@ interface TaskRepoInterface
     /**
      * Create a task.
      *
-     * @param array $data
+     * @param array{project_id: int, title: string, description: string, status: string, priority: string, due_date?: string} $data
      * @return Task
     */
     public function create(array $data): Task;
@@ -19,7 +19,7 @@ interface TaskRepoInterface
      * Update a task.
      * 
      * @param int $id
-     * @param array $data
+     * @param array{title?: string, description?: string, status?: string, priority?: string, due_date?: string} $data
      * @return bool
      */
     public function update(int $id, array $data): bool;
@@ -37,10 +37,10 @@ interface TaskRepoInterface
      * List project tasks.
      *
      * @param int $projectId
-     * @param array $filters
+     * @param array{status?: string, priority?: string} $filters
      * @param string $orderBy
      * @param int $records
-     * @return LengthAwarePaginator
+     * @return LengthAwarePaginator<int, Task>
      */
     public function getAll(int $projectId, array $filters, string $orderBy, int $records): LengthAwarePaginator;
 
