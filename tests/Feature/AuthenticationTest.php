@@ -149,3 +149,26 @@ it('prevnt login for with invalid credentials', function () {
             ]);
 });
 
+it('logout user', function () {
+
+    $user = User::factory()->create([
+        'name'      => 'John Doe',
+        'email'     => 'john.doe@email.com',
+        'password'  => 'test@123'
+    ]);
+
+    $token = $user->createToken('API-Token-TDD');
+    
+    $response = $this->postJson(route('api.logout'), [], [
+        'Accept'        => 'application/json',
+        'Authorization' => 'Bearer ' . $token->plainTextToken
+    ]);
+
+    $response->assertStatus(200)
+            ->assertJsonStructure([
+                'result',
+                'message'
+            ]);
+    $this->assertDatabaseCount('personal_access_tokens', 0);
+});
+
