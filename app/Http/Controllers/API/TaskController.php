@@ -7,10 +7,11 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ListTasksRequest;
+use App\Http\Resources\TaskCollection;
 use App\Models\Project;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
@@ -28,9 +29,24 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, Project $project)
+    public function index(ListTasksRequest $request, Project $project)
     {
-        //
+        try {
+            
+            $filters = $request->filters ?? [];
+            $orderBy = $request->order_by ?? 'created_at';
+            $records = $request->records ?? 15;
+
+            $tasks = $this->taskService->listTask($project, $filters, $orderBy, $records);
+
+            return (new TaskCollection($tasks))->response();
+
+        } catch (Exception $e) {
+
+            Log::error('Error While Listing Project Tasks', [$e->getMessage(), $e->getTraceAsString()]);
+
+            return $this->responseInternalServerError('Unable to list project tasks, please try again later!');
+        }
     }
 
     /**

@@ -58,12 +58,13 @@ class TaskRepository implements TaskRepoInterface
      * @param int $records
      * @return LengthAwarePaginator
      */
-    public function getAll(int $projectId, array $filters = [], string $orderBy = 'due_date', int $records = 10): LengthAwarePaginator
+    public function getAll(int $projectId, array $filters = [], string $orderBy = 'created_at', int $records = 10): LengthAwarePaginator
     {
         return Task::where('project_id', $projectId)
                 ->when(!empty($filters), function ($q) use ($filters) {
                     return $q->where($filters);
-                })->orderBy($orderBy)
+                })
+                ->orderBy($orderBy)
                 ->paginate($records);
     }
 }
