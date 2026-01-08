@@ -2,6 +2,9 @@
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use Laravel\Sanctum\Sanctum;
+use App\Services\UserService;
+use Illuminate\Http\Request;
 
 uses(RefreshDatabase::class);
 
@@ -215,4 +218,48 @@ it('throttle signup attempts for guest users', function () {
                 ]);
         }
     }
+});
+
+it('returns 501 in case of unexpected exception for registration api', function () {
+
+    $signUpData = [
+        'name'      => 'John Doe',
+        'email'     => 'john.doe@email.com',
+        'password'  => 'test@123',
+        'password_confirmation' => 'test@123'
+    ];
+
+    $this->mock(UserService::class, function ($mock) {
+        $mock->shouldReceive('createUser')
+            ->once()
+            ->andThrow(new Exception('Service failure'));
+    });
+
+    
+    $response = $this->postJson(route('api.register'), $signUpData);
+
+    $response
+        ->assertStatus(501)
+        ->assertJson([
+            'result'  => false,
+            'message' => 'Unable to register user, please try again later!',
+        ]);
+});
+
+it('returns 501 in case of unexpected exception for logout api', function () {
+
+    Sanctum::actingAs(User::factory()->create());
+
+    $this->mock(Request::class, function ($mock) {
+        $mock->shouldReceive('user')->andThrow(new Exception());
+    });
+    
+    $response = $this->postJson(route('api.logout'), []);
+
+    $response
+        ->assertStatus(501)
+        ->assertJson([
+            'result'  => false,
+            'message' => 'Unable to logout user, please try again later!',
+        ]);
 });
