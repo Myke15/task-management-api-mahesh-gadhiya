@@ -6,6 +6,7 @@ use App\Contracts\Project\ProjectServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -59,9 +60,21 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show(Project $project): ProjectResource|JsonResponse
     {
-        //
+        $this->authorize('view', $project);
+
+        try {
+            
+            return new ProjectResource($project);
+
+        } catch (Exception $e) {
+
+            Log::error('Error While Showing Project Detail', [$e->getMessage(), $e->getTraceAsString()]);
+
+            return $this->responseInternalServerError('Unable to fetch project, please try again later!');
+
+        }
     }
 
     /**
@@ -88,8 +101,22 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy(Project $project): JsonResponse
     {
-        //
+        $this->authorize('delete', $project);
+
+        try {
+            
+            $this->projectService->removeProject($project);
+
+            return $this->responseSuccess('Project removed.');
+
+        } catch (Exception $e) {
+
+            Log::error('Error While Removing Project', [$e->getMessage(), $e->getTraceAsString()]);
+
+            return $this->responseInternalServerError('Unable to remove project, please try again later!');
+
+        }
     }
 }

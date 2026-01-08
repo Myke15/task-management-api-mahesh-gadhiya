@@ -40,7 +40,7 @@ class ProjectRepository implements ProjectRepoInterface
      */
     public function remove(int $id): bool
     {
-        return Project::owned()->where('id', $id)->delet();
+        return Project::owned()->where('id', $id)->delete();
     }
 
     /**
