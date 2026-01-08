@@ -1,59 +1,193 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Task Management API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
 
-## About Laravel
+A robust task management API built with Laravel 12 that allows users to manage projects and tasks efficiently. The API provides comprehensive user authentication, project management, and task tracking capabilities with a clean RESTful interface.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Key Features
+- 🔐 User authentication and registration (Laravel Sanctum)
+- 📋 Project management (CRUD operations)
+- ✅ Task management (CRUD operations)
+- 📧 Welcome email notifications for new users
+- 🔍 Advanced filtering and pagination for task list
+- 📊 Static code analysis with PHPStan Level 6
+- 🧪 Comprehensive testing with Pest PHP
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **PHP**: 8.3
+- **Framework**: Laravel 12
+- **Database**: MySQL 8.0
+- **Authentication**: Laravel Sanctum
+- **Testing**: Pest PHP
+- **Static Analysis**: PHPStan Level 6 (Larastan)
 
-## Learning Laravel
+## Prerequisites
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- PHP >= 8.3
+- Composer
+- MySQL 8.0+
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Installation
 
-## Laravel Sponsors
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Myke15/task-management-api-mahesh-gadhiya.git
+   cd task-management-api-mahesh-gadhiya
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Install dependencies**
+   ```bash
+   composer install
+   ```
 
-### Premium Partners
+3. **Configure environment**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+4. **Database setup**
+   - Update your `.env` file with database credentials
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
 
-## Contributing
+## Quick Setup (Alternative)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Use the built-in setup script:
+```bash
+composer run setup
+```
 
-## Code of Conduct
+## Running the Application
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Development Server
+```bash
+php artisan serve
+```
 
-## Security Vulnerabilities
+### Using Docker
+```bash
+./up.sh  # Start containers
+./down.sh  # Stop containers
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Running Tests
 
-## License
+```bash
+# Run all tests
+php artisan test
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# For Docker environment
+docker-compose exec app ./vendor/bin/pest
+
+# Run tests with coverage
+php artisan test --coverage
+
+# For Docker environment
+docker-compose exec app ./vendor/bin/pest --coverage
+
+## Static Analysis
+
+```bash
+# Run PHPStan analysis
+./vendor/bin/phpstan analyse
+
+# For Docker environment
+docker-compose exec app ./vendor/bin/phpstan analyse --memory-limit=1G
+
+```
+
+## API Documentation
+
+### Authentication Endpoints
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST   | `/api/register` | Register new user | No |
+| POST   | `/api/login` | Login user | No |
+| POST   | `/api/logout` | Logout user | Yes |
+| GET    | `/api/user` | Get current user profile | Yes |
+
+### Project Endpoints
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET    | `/api/projects` | List user's projects | Yes |
+| POST   | `/api/projects` | Create new project | Yes |
+| GET    | `/api/projects/{project}` | Get project details | Yes |
+| PUT    | `/api/projects/{project}` | Update project | Yes |
+| DELETE | `/api/projects/{project}` | Delete project | Yes |
+
+### Task Endpoints
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET    | `/api/projects/{project}/tasks` | List project tasks | Yes |
+| POST   | `/api/projects/{project}/tasks` | Create task in project | Yes |
+| GET    | `/api/tasks/{task}` | Get task details | Yes |
+| PUT    | `/api/tasks/{task}` | Update task | Yes |
+| DELETE | `/api/tasks/{task}` | Delete task | Yes |
+
+### Example API Usage
+
+#### Authentication
+```bash
+# Register
+curl -X POST http://localhost:8000/api/register \
+  -H "Content-Type: application/json" \
+  -d '{"name":"John Doe","email":"john@example.com","password":"password","password_confirmation":"password"}'
+
+# Login
+curl -X POST http://localhost:8000/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"john@example.com","password":"password"}'
+```
+
+#### Project Management
+```bash
+# Create project
+curl -X POST http://localhost:8000/api/projects \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"My Project","description":"Project description","status":"pending"}'
+
+# List projects
+curl -X GET http://localhost:8000/api/projects \
+  -H "Authorization: Bearer YOUR_TOKEN"
+```
+
+#### Task Management
+```bash
+# Create task
+curl -X POST http://localhost:8000/api/projects/1/tasks \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Task title","description":"Task description","status":"todo","priority":"high","due_date":"2024-12-31"}'
+```
+
+For more API information, kindly refere task-management-api.postman_collection.json
+
+## Architecture Decisions
+
+### Repository Pattern
+- **Decision**: Implemented Repository pattern for data access
+- **Rationale**: Provides abstraction layer between business logic and data persistence, making the code more testable and maintainable
+
+### Service Layer
+- **Decision**: Added Service layer for business logic
+- **Rationale**: Separates complex business operations from controllers, promoting single responsibility principle
+
+### Contract-First Approach
+- **Decision**: Used interfaces (contracts) for all major components
+- **Rationale**: Enables dependency inversion, making the application more flexible and testable
+
+### Event-Driven Architecture
+- **Decision**: Implemented events for user registration
+- **Rationale**: Enables loose coupling and easy extension of functionality (e.g., welcome emails)
+
+### Enum Usage
+- **Decision**: Used PHP 8.1+ enums for status and priority values
+- **Rationale**: Provides type safety and prevents invalid values
