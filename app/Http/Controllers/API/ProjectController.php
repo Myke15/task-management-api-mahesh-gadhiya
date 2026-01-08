@@ -6,6 +6,7 @@ use App\Contracts\Project\ProjectServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use Exception;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -29,9 +31,21 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request): JsonResponse
     {
-        //
+        try {
+
+            $projects = $this->projectService->listProjects($request->records ?? 15);
+
+            return (new ProjectCollection($projects))->response();
+
+        } catch (Exception $e) {
+
+            Log::error('Error While Creating Project', [$e->getMessage(), $e->getTraceAsString()]);
+
+            return $this->responseInternalServerError('Unable to fetch projects, please try again later!');
+
+        }
     }
 
     /**
