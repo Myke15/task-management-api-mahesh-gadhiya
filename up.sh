@@ -28,7 +28,7 @@ echo "🔍 Running Static Analysis..."
 docker-compose exec app ./vendor/bin/phpstan analyse --memory-limit=1G
 
 echo "---"
-echo "✅ API: http://localhost:8080"
+echo "✅ API: http://localhost:8000"
 echo "✅ MySQL (External): 127.0.0.1:33700"
 echo "✅ Redis (External): 127.0.0.1:63890"
 echo "✅ MailPit (External): 127.0.0.1:9025"
