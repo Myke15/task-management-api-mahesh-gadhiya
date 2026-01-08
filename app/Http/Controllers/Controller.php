@@ -41,4 +41,11 @@ abstract class Controller
             'message'   => $message
         ], $additionalData), $statusCode);
     }
+
+    public function responseUnauthorized($message) {
+        return $this->returnResponse([
+            'result'    => false,
+            'message'   => $message
+        ], 401);
+    }
 }
