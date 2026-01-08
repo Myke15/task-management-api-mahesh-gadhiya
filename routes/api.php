@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\ProjectController;
 
 Route::group([
     'as' => 'api.',
@@ -19,5 +20,7 @@ Route::group([
 ], function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/user', UserController::class)->name('profile');
+
+    Route::apiResource('projects', ProjectController::class);
 });
 

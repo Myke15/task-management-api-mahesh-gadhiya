@@ -7,6 +7,7 @@ use App\Contracts\Project\ProjectRepoInterface;
 use App\Models\Project;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class ProjectService implements ProjectServiceInterface
 {
