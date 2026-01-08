@@ -17,7 +17,7 @@ Route::group([
 
 Route::group([
     'as' => 'api.',
-    'middleware' => ['auth:sanctum']
+    'middleware' => ['throttle:100,1', 'auth:sanctum']
 ], function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/user', UserController::class)->name('profile');
