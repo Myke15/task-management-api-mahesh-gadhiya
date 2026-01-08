@@ -36,11 +36,17 @@ class ProjectRepository implements ProjectRepoInterface
      * Remove project
      *
      * @param int $id
+     * @param bool $forceDelete
      * @return bool
      */
-    public function remove(int $id): bool
+    public function remove(int $id, bool $forceDelete = false): bool
     {
-        return Project::owned()->where('id', $id)->delete();
+        return Project::owned()->where('id', $id)
+            ->when($forceDelete, function ($q) {
+                return $q->forceDelete();
+            }, function ($q) {
+                return $q->delete();
+            });
     }
 
     /**

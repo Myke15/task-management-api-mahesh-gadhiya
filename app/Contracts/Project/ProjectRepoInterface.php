@@ -28,9 +28,10 @@ interface ProjectRepoInterface
      * Remove project
      *
      * @param int $id
+     * @param bool $forceDelete
      * @return bool
      */
-    public function remove(int $id): bool;
+    public function remove(int $id, bool $forceDelete = false): bool;
 
     /**
      * List projects.
