@@ -1,0 +1,73 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: task-api-app
+    container_name: task-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      - task-network
+    depends_on:
+      - db
+      - redis
+
+  nginx:
+    image: nginx:alpine
+    container_name: task-nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - task-network
+
+  db:
+    image: mysql:8.0
+    container_name: task-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "127.0.0.1:33700:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - task-network
+
+  redis:
+    image: redis:alpine
+    container_name: task-redis
+    restart: unless-stopped
+    ports:
+      - "63890:6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - task-network
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: task-mailpit
+    restart: unless-stopped
+    ports:
+      - "9025:8025" # Web Dashboard
+      - "2025:1025" # SMTP Server
+    networks:
+      - task-network
+
+networks:
+  task-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
+  redisdata:
+    driver: local
