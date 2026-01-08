@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -77,5 +78,27 @@ class AuthController extends Controller
 
         }
         
+    }
+
+    /**
+     * Logout API
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logout(Request $request): JsonResponse 
+    {
+        try {
+            //Revoke tokens
+            $request->user()->tokens()->delete();
+            
+            return $this->responseSuccess('Logged out successfully!');
+            
+        } catch (Exception $e) {
+
+            Log::error('Error While Logging Out User', [$e->getMessage(), $e->getTraceAsString()]);
+
+            return $this->responseInternalServerError('Unable to logout user, please try again later!');
+
+        }
     }
 }

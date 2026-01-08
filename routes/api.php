@@ -11,7 +11,13 @@ Route::group([
     Route::post('/login', [AuthController::class, 'login'])->name('login');
 });
 
+Route::group([
+    'as' => 'api.',
+    'middleware' => ['auth:sanctum']
+], function() {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+});
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
