@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ProjectController;
+use App\Http\Controllers\API\TaskController;
 
 Route::group([
     'as' => 'api.',
@@ -22,5 +23,7 @@ Route::group([
     Route::get('/user', UserController::class)->name('profile');
 
     Route::apiResource('projects', ProjectController::class);
+    Route::apiResource('projects.tasks', TaskController::class)->only(['index', 'store'])->scoped();
+    Route::apiResource('tasks', TaskController::class)->only(['show', 'update', 'destroy']);
 });
 
