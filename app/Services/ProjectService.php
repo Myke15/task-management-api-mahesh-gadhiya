@@ -28,7 +28,7 @@ class ProjectService implements ProjectServiceInterface
      */
     private function getCacheKey()
     {
-        return 'user:' . auth()->id() . 'projects';
+        return 'u:' . auth()->id() . ':prj';
     }
 
     /**
