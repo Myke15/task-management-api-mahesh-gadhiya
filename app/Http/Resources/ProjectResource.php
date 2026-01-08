@@ -3,13 +3,11 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\BaseResource;
 
-class ProjectResource extends JsonResource
+class ProjectResource extends BaseResource
 {
-    
     public static $wrap = 'project';
-
     /**
      * Transform the resource into an array.
      *
@@ -27,4 +25,5 @@ class ProjectResource extends JsonResource
             'updated_at'        => $this->updated_at,
         ];
     }
+
 }

@@ -3,13 +3,11 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\BaseResource;
 
-class UserResource extends JsonResource
+class UserResource extends BaseResource
 {
-
     public static $wrap = 'user';
-
     /**
      * Transform the resource into an array.
      *
