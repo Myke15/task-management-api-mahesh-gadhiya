@@ -172,3 +172,47 @@ it('logout user', function () {
     $this->assertDatabaseCount('personal_access_tokens', 0);
 });
 
+it('throttle login attempts for guest users', function () {
+
+    $loginData = [
+        'email'     => 'john.doe@email.com',
+        'password'  => 'test@123'
+    ];
+
+    for ($i = 1; $i <= 4; $i++) {
+        $response = $this->postJson(route('api.login'), $loginData);
+
+        if ($i <=3 ) {
+            $response->assertStatus(422);
+        } else {
+            $response->assertStatus(429)
+                ->assertJsonStructure([
+                    'result',
+                    'message'
+                ]);
+        }
+    }
+});
+
+it('throttle signup attempts for guest users', function () {
+
+    $signUpData = [
+        'name'      => 'John Doe',
+        'email'     => 'john.doe@email.com',
+        'password'  => 'test@123'
+    ];
+
+    for ($i = 1; $i <= 4; $i++) {
+        $response = $this->postJson(route('api.register'), $signUpData);
+
+        if ($i <=3 ) {
+            $response->assertStatus(422);
+        } else {
+            $response->assertStatus(429)
+                ->assertJsonStructure([
+                    'result',
+                    'message'
+                ]);
+        }
+    }
+});

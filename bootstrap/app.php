@@ -5,6 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -25,6 +26,16 @@ return Application::configure(basePath: dirname(__DIR__))
                     'message'   => $e->getMessage(),
                     'all_failed_validations'   => collect($e->errors())->flatten(),
                 ], 422);
+            }
+        });
+
+        // Customizing the 429 too many attemps
+        $exceptions->render(function (ThrottleRequestsException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'result'    => false,
+                    'message'   => $e->getMessage()
+                ], 429);
             }
         });
     })->create();
