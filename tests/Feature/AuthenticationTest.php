@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\User;
 
 uses(RefreshDatabase::class);
 
@@ -62,3 +63,89 @@ it('validate registration request', function () {
                 'all_failed_validations'
             ]);
 });
+
+it('validate login request', function () {
+
+    $loginData = [
+        'email'     => 'john.doe@email.com'
+    ];
+    
+    $response = $this->postJson(route('api.login'), $loginData);
+
+    $response->assertStatus(422)
+            ->assertJsonStructure([
+                'result',
+                'message',
+                'all_failed_validations'
+            ]);
+});
+
+it('successfully sign in user', function () {
+
+    User::factory()->create([
+        'name'      => 'John Doe',
+        'email'     => 'john.doe@email.com',
+        'password'  => 'test@123'
+    ]);
+
+    $loginData = [
+        'email'     => 'john.doe@email.com',
+        'password'  => 'test@123'
+    ];
+    
+    $response = $this->postJson(route('api.login'), $loginData);
+
+    $response->assertStatus(200)
+            ->assertJsonStructure([
+                'result',
+                'message',
+                'token'
+            ]);
+});
+
+it('it generate api token for user', function () {
+
+    User::factory()->create([
+        'name'      => 'John Doe',
+        'email'     => 'john.doe@email.com',
+        'password'  => 'test@123'
+    ]);
+
+    $loginData = [
+        'email'     => 'john.doe@email.com',
+        'password'  => 'test@123'
+    ];
+    
+    $response = $this->postJson(route('api.login'), $loginData);
+
+    $response->assertStatus(200);
+    $this->assertDatabaseCount('personal_access_tokens', 1);
+
+});
+
+
+it('prevnt login for with invalid credentials', function () {
+
+    User::factory()->create([
+        'name'      => 'John Doe',
+        'email'     => 'john.doe@email.com',
+        'password'  => 'test@123'
+    ]);
+
+    $loginData = [
+        'email'     => 'john.doe@email.com',
+        'password'  => 'test@1233'
+    ];
+    
+    $response = $this->postJson(route('api.login'), $loginData);
+
+    $response->assertStatus(401)
+            ->assertJsonStructure([
+                'result',
+                'message'
+            ])->assertJson([
+                'result'    => false,
+                'message'   => 'Invalid credentials or unauthorized access'
+            ]);
+});
+
