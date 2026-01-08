@@ -6,6 +6,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Auth\AuthenticationException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -36,6 +37,16 @@ return Application::configure(basePath: dirname(__DIR__))
                     'result'    => false,
                     'message'   => $e->getMessage()
                 ], 429);
+            }
+        });
+
+        // Customizing the Unauthenticated response
+        $exceptions->render(function (AuthenticationException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'result'    => false,
+                    'message'   => $e->getMessage()
+                ], 401);
             }
         });
     })->create();
