@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Contracts\User\UserRepoInterface;
 use App\Contracts\User\UserServiceInterface;
+use App\Events\UserRegistered;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Support\Facades\Hash;
@@ -37,7 +38,7 @@ class UserService implements UserServiceInterface
 
             DB::commit();
 
-            // TODO::Fire event to send welcome email (outside transaction)
+            event(new UserRegistered($user));
 
             return $user;
 
