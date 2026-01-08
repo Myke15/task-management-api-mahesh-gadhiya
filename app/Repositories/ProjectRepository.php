@@ -12,7 +12,7 @@ class ProjectRepository implements ProjectRepoInterface
     /**
      * Create a new project.
      *
-     * @param array $data
+     * @param array{user_id: int, name: string, description: string, status: string} $data
      * @return Project
      */
     public function create(array $data): Project
@@ -23,12 +23,13 @@ class ProjectRepository implements ProjectRepoInterface
     /**
      * Update a project.
      * 
-     * @param array $data
+     * @param int $id
+     * @param array{name?: string, description?: string, status?: string} $data
      * @return bool
      */
     public function update(int $id, array $data): bool
     {
-        return Project::owned()->where('id', $id)->update($data);
+        return (bool) Project::owned()->where('id', $id)->update($data);
     }
 
 
@@ -53,7 +54,7 @@ class ProjectRepository implements ProjectRepoInterface
      * List projects.
      *
      * @param int $records
-     * @return LengthAwarePaginator
+     * @return LengthAwarePaginator<int, Project>
      */
     public function getAll(int $records): LengthAwarePaginator
     {

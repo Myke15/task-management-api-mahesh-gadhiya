@@ -10,7 +10,7 @@ interface ProjectRepoInterface
     /**
      * Create a project.
      *
-     * @param array $data
+     * @param array{user_id: int, name: string, description: string, status: string} $data
      * @return Project
     */
     public function create(array $data): Project;
@@ -19,7 +19,7 @@ interface ProjectRepoInterface
      * Update a project.
      * 
      * @param int $id
-     * @param array $data
+     * @param array{name?: string, description?: string, status?: string} $data
      * @return bool
      */
     public function update(int $id, array $data): bool;
@@ -37,7 +37,7 @@ interface ProjectRepoInterface
      * List projects.
      *
      * @param int $records
-     * @return LengthAwarePaginator
+     * @return LengthAwarePaginator<int, Project>
      */
     public function getAll(int $records): LengthAwarePaginator;
     

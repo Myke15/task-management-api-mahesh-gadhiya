@@ -12,14 +12,14 @@ interface ProjectServiceInterface
      * List projects.
      *
      * @param int $records
-     * @return LengthAwarePaginator
+     * @return LengthAwarePaginator<int, Project>
      */
     public function listProjects(int $records): LengthAwarePaginator;
 
     /**
      * Create a project.
      *
-     * @param array $data
+     * @param array{user_id: int, name: string, description: string, status: string} $data
      * @return Project
      */
     public function createProject(array $data): Project;
@@ -28,7 +28,7 @@ interface ProjectServiceInterface
      * Update a project
      *
      * @param Project $project
-     * @param array $data
+     * @param array{name?: string, description?: string, status?: string} $data
      * @return bool
      */
     public function updateProject(Project $project, array $data): bool;
