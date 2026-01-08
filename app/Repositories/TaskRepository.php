@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Contracts\Task\TaskRepoInterface;
 use App\Models\Task;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Enums\TaskPriority;
 
 class TaskRepository implements TaskRepoInterface
 {
@@ -63,8 +64,15 @@ class TaskRepository implements TaskRepoInterface
         return Task::where('project_id', $projectId)
                 ->when(!empty($filters), function ($q) use ($filters) {
                     return $q->where($filters);
-                })
-                ->orderBy($orderBy)
-                ->paginate($records);
+                })->when($orderBy == 'priority', function ($q) {
+                    //use case for priority ordering
+                    return $q->orderByRaw("CASE priority 
+                        WHEN '". TaskPriority::HIGH->value ."' THEN 1
+                        WHEN '". TaskPriority::MEDIUM->value ."' THEN 2
+                        WHEN '". TaskPriority::LOW->value ."' THEN 3
+                        ELSE 4 END");
+                }, function ($q) use ($orderBy) {
+                    return $q->orderBy($orderBy);
+                })->paginate($records);
     }
 }
