@@ -1,0 +1,2860 @@
+{
+	"info": {
+		"_postman_id": "484d59f4-afd9-485a-a5dc-969bee1aafba",
+		"name": "Task Management API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6235902"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Mahesh Gadhiya",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mgadhiya16@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "test@123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "test@123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Ok",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Mahesh Gadhiya",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "mgadhiya15@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "test@123",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "test@123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": true,\n    \"message\": \"Registration success.\"\n}"
+						},
+						{
+							"name": "422 - Validation Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Mahesh Gadhiya",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "mgadhiya15@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "test@123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"The email has already been taken. (and 1 more error)\",\n    \"all_failed_validations\": [\n        \"The email has already been taken.\",\n        \"The password field confirmation does not match.\"\n    ]\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Mahesh Gadhiya",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "mgadhiya16@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "test@123",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "test@123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Not Implemented",
+							"code": 501,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to register user, please try again later!\"\n}"
+						},
+						{
+							"name": "429 - Too many attemps",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Mahesh Gadhiya",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "mgadhiya16@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "test@123",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "test@123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Too Many Attempts.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "mgadhiya15@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "test@123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Ok",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "mgadhiya15@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "test@123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": true,\n    \"message\": \"Welcome to TASK MANAGEMENT API\",\n    \"token\": \"1|hapjbB0sBvKxrJ2Gd0CcXCpcJfcgZAiSZMQPWcGK2c3935a0\"\n}"
+						},
+						{
+							"name": "422  - Validation Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "mgadhiya15@gmail.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"The password field is required.\",\n    \"all_failed_validations\": [\n        \"The password field is required.\"\n    ]\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "mgadhiya15@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "test@123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Not Implemented",
+							"code": 501,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to authentice user, please try again later!\"\n}"
+						},
+						{
+							"name": "429 - Too many attempts",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "mgadhiya15@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "test@123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Too Many Attempts.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Ok",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/logout",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": true,\n    \"message\": \"Logged out successfully!\"\n}"
+						},
+						{
+							"name": "401 - Unauthenticated",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/logout",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unauthenticated.\"\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/logout",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to logout user, please try again later!\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"Mahesh Gadhiya\",\n        \"email\": \"mgadhiya15@gmail.com\",\n        \"created_at\": \"2026-01-08T08:46:06.000000Z\",\n        \"updated_at\": \"2026-01-08T08:46:06.000000Z\"\n    },\n    \"result\": true\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "Not Implemented",
+							"code": 501,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to load user profile, please try again later!\"\n}"
+						},
+						{
+							"name": "401 - Unauthenticated",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unauthenticated.\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "Add Project",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Project 1",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lorem Ipsum",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Project 1",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Lorem Ipsum",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/projects",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": true,\n    \"message\": \"Project created successfully.\"\n}"
+						},
+						{
+							"name": "422 - Validation Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Project 1",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Lorem Ipsum",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/projects",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"The description field is required.\",\n    \"all_failed_validations\": [\n        \"The description field is required.\"\n    ]\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Project 1",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Lorem Ipsum",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/projects",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects"
+									]
+								}
+							},
+							"status": "Not Implemented",
+							"code": 501,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to create project, please try again later!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "List Projects",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/projects",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"projects\": [\n        {\n            \"id\": 1,\n            \"user_id\": 1,\n            \"name\": \"Project 1\",\n            \"description\": \"Lorem Ipsum\",\n            \"status\": \"pending\",\n            \"created_at\": \"2026-01-08T08:59:31.000000Z\",\n            \"updated_at\": \"2026-01-08T08:59:31.000000Z\"\n        },\n        {\n            \"id\": 2,\n            \"user_id\": 1,\n            \"name\": \"Project 1\",\n            \"description\": \"Lorem Ipsum\",\n            \"status\": \"pending\",\n            \"created_at\": \"2026-01-08T09:00:56.000000Z\",\n            \"updated_at\": \"2026-01-08T09:00:56.000000Z\"\n        }\n    ],\n    \"links\": {\n        \"first\": \"https://task-api.test/api/projects?page=1\",\n        \"last\": \"https://task-api.test/api/projects?page=1\",\n        \"prev\": null,\n        \"next\": null\n    },\n    \"meta\": {\n        \"current_page\": 1,\n        \"from\": 1,\n        \"last_page\": 1,\n        \"path\": \"https://task-api.test/api/projects\",\n        \"per_page\": 15,\n        \"to\": 2,\n        \"total\": 2\n    },\n    \"result\": true\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/projects",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects"
+									]
+								}
+							},
+							"status": "Not Implemented",
+							"code": 501,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to fetch projects, please try again later!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Project",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Update Name",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Updated Description",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "in_progress",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/projects/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"projects",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Ok",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Update Name",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Updated Description",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "in_progress",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/projects/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": true,\n    \"message\": \"Project updated successfully.\"\n}"
+						},
+						{
+							"name": "422 - Validation Failed",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Update Name",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Updated Description",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "in_progress_",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/projects/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"1"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"The selected status is invalid.\",\n    \"all_failed_validations\": [\n        \"The selected status is invalid.\"\n    ]\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Update Name",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Updated Description",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "in_progress",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/projects/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"1"
+									]
+								}
+							},
+							"status": "Not Implemented",
+							"code": 501,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to update project, please try again later!\"\n}"
+						},
+						{
+							"name": "404 - Record Not Found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Update Name",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Updated Description",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "in_progress",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/projects/1010",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"1010"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Record not found.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Show Project",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/projects/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"projects",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/projects/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"project\": {\n        \"id\": 1,\n        \"user_id\": 1,\n        \"name\": \"Update Name\",\n        \"description\": \"Updated Description\",\n        \"status\": \"in_progress\",\n        \"created_at\": \"2026-01-08T08:59:31.000000Z\",\n        \"updated_at\": \"2026-01-08T09:05:01.000000Z\"\n    },\n    \"result\": true\n}"
+						},
+						{
+							"name": "404 - Record Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/projects/1010",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"1010"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Record not found.\"\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/projects/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to fetch project, please try again later!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Project",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/projects/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"projects",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Ok",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/projects/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": true,\n    \"message\": \"Project removed.\"\n}"
+						},
+						{
+							"name": "404 - Record Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/projects/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"1"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Record not found.\"\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/projects/2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"2"
+									]
+								}
+							},
+							"status": "Not Implemented",
+							"code": 501,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to remove project, please try again later!\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Create Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Project 2 - Task 1",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lorem ipsum Lorem Ipsum",
+									"type": "text"
+								},
+								{
+									"key": "priority",
+									"value": "high",
+									"type": "text"
+								},
+								{
+									"key": "due_date",
+									"value": "2026-01-14",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/projects/2/tasks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"projects",
+								"2",
+								"tasks"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404 - Record Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "Project 2 - Task 1",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Lorem ipsum Lorem Ipsum",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "high",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2026-01-14",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/projects/2/tasks",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"2",
+										"tasks"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Record not found.\"\n}"
+						},
+						{
+							"name": "200 - Ok",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "Project 2 - Task 1",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Lorem ipsum Lorem Ipsum",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "high",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2026-01-14",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/projects/2/tasks",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"2",
+										"tasks"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": true,\n    \"message\": \"Task created successfully!\"\n}"
+						},
+						{
+							"name": "422 - Validation Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "Project 2 - Task 1",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Lorem ipsum Lorem Ipsum",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "priority",
+											"value": "high",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2026-01-14",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/projects/2/tasks",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"2",
+										"tasks"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"The description field is required.\",\n    \"all_failed_validations\": [\n        \"The description field is required.\"\n    ]\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "Project 2 - Task 1",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Lorem ipsum Lorem Ipsum",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "high",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2026-01-14",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/projects/2/tasks",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"2",
+										"tasks"
+									]
+								}
+							},
+							"status": "Not Implemented",
+							"code": 501,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to create task, please try again later!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "List Tasks",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/projects/2/tasks?filters[status]=todo&filters[priority]=high&order_by=due_date",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"projects",
+								"2",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "filters[status]",
+									"value": "todo"
+								},
+								{
+									"key": "filters[priority]",
+									"value": "high"
+								},
+								{
+									"key": "order_by",
+									"value": "due_date"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/projects/2/tasks?filters[status]=todo&filters[priority]=high&order_by=due_date",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"2",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "filters[status]",
+											"value": "todo"
+										},
+										{
+											"key": "filters[priority]",
+											"value": "high"
+										},
+										{
+											"key": "order_by",
+											"value": "due_date"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"tasks\": [\n        {\n            \"id\": 1,\n            \"project_id\": 2,\n            \"title\": \"Project 2 - Task 1\",\n            \"description\": \"Lorem ipsum Lorem Ipsum\",\n            \"status\": \"todo\",\n            \"priority\": \"high\",\n            \"due_date\": \"2026-01-14\",\n            \"created_at\": \"2026-01-08T09:10:26.000000Z\",\n            \"updated_at\": \"2026-01-08T09:10:26.000000Z\"\n        }\n    ],\n    \"links\": {\n        \"first\": \"https://task-api.test/api/projects/2/tasks?page=1\",\n        \"last\": \"https://task-api.test/api/projects/2/tasks?page=1\",\n        \"prev\": null,\n        \"next\": null\n    },\n    \"meta\": {\n        \"current_page\": 1,\n        \"from\": 1,\n        \"last_page\": 1,\n        \"path\": \"https://task-api.test/api/projects/2/tasks\",\n        \"per_page\": 15,\n        \"to\": 1,\n        \"total\": 1\n    },\n    \"result\": true\n}"
+						},
+						{
+							"name": "422 - Failed Validation",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/projects/2/tasks?filters[status]=todos&filters[priority]=high&order_by=due_date",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"2",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "filters[status]",
+											"value": "todos"
+										},
+										{
+											"key": "filters[priority]",
+											"value": "high"
+										},
+										{
+											"key": "order_by",
+											"value": "due_date"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"The selected filters.status is invalid.\",\n    \"all_failed_validations\": [\n        \"The selected filters.status is invalid.\"\n    ]\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/projects/2/tasks?filters[status]=todo&filters[priority]=high&order_by=due_date",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"projects",
+										"2",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "filters[status]",
+											"value": "todo"
+										},
+										{
+											"key": "filters[priority]",
+											"value": "high"
+										},
+										{
+											"key": "order_by",
+											"value": "due_date"
+										}
+									]
+								}
+							},
+							"status": "Not Implemented",
+							"code": 501,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to list project tasks, please try again later!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Show Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/tasks/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - Ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/tasks/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tasks",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"task\": {\n        \"id\": 1,\n        \"project_id\": 2,\n        \"title\": \"Project 2 - Task 1\",\n        \"description\": \"Lorem ipsum Lorem Ipsum\",\n        \"status\": \"todo\",\n        \"priority\": \"high\",\n        \"due_date\": \"2026-01-14\",\n        \"created_at\": \"2026-01-08T08:16:26.000000Z\",\n        \"updated_at\": \"2026-01-08T08:16:26.000000Z\"\n    },\n    \"result\": true\n}"
+						},
+						{
+							"name": "404 - Record not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/tasks/101",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tasks",
+										"101"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Record not found.\"\n}"
+						},
+						{
+							"name": "403 - Access Denied",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/tasks/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tasks",
+										"1"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"This action is unauthorized.\"\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/tasks/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tasks",
+										"1"
+									]
+								}
+							},
+							"status": "Not Implemented",
+							"code": 501,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to fetch task, please try again later!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Updated Task",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Updated Description",
+									"type": "text"
+								},
+								{
+									"key": "due_date",
+									"value": "2026-01-26",
+									"type": "text"
+								},
+								{
+									"key": "priority",
+									"value": "medium",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/tasks/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "422 - Failed Validation",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "Updated Task",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Updated Description",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2026-01-26",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "medium",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/tasks/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tasks",
+										"1"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"The priority field is required.\",\n    \"all_failed_validations\": [\n        \"The priority field is required.\"\n    ]\n}"
+						},
+						{
+							"name": "200 - OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "Updated Task",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Updated Description",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2026-01-26",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "medium",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/tasks/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tasks",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": true,\n    \"message\": \"Task updated successfully!\"\n}"
+						},
+						{
+							"name": "403 - Access Denied",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "Updated Task",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Updated Description",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2026-01-26",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "medium",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/tasks/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tasks",
+										"1"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"This action is unauthorized.\"\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "Updated Task",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Updated Description",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2026-01-26",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "medium",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/tasks/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tasks",
+										"1"
+									]
+								}
+							},
+							"status": "Not Implemented",
+							"code": 501,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to update task, please try again later!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/tasks/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 - OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/tasks/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tasks",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": true,\n    \"message\": \"Task removed!\"\n}"
+						},
+						{
+							"name": "404 - Record Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/tasks/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tasks",
+										"1"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Record not found.\"\n}"
+						},
+						{
+							"name": "403 - Access Denied",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/tasks/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tasks",
+										"1"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"This action is unauthorized.\"\n}"
+						},
+						{
+							"name": "501 - Internal Server Error",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/tasks/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tasks",
+										"1"
+									]
+								}
+							},
+							"status": "Not Implemented",
+							"code": 501,
+							"_postman_previewlanguage": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"result\": false,\n    \"message\": \"Unable to remove task, please try again later!\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
